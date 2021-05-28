@@ -1,0 +1,363 @@
+SQL — простыми словами, это язык программирования структурированных запросов 
+(SQL, Structured Query Language), который используется в качестве эффективного способа
+ сохранения данных, поиска их частей, обновления, извлечения из базы и удаления.
+
+SELECT (от англ. select — «выбрать») — оператор запроса (DML/DQL) в языке SQL, возвращающий набор данных (выборку)
+ из базы данных.
+Оператор возвращает ноль или более строк. Список возвращаемых столбцов задается в части оператора,
+ называемой предложением SELECT. Поскольку SQL является декларативным языком, запрос SELECT определяет
+ лишь требования к возвращаемому набору данных, но не является точной инструкцией по их вычислению. СУБД
+ транслирует запрос SELECT во внутренний план исполнения («query plan»), который может различаться даже для 
+синтаксически одинаковых запросов и от конкретной СУБД.
+Оператор SELECT состоит из нескольких предложений (разделов):
+-SELECT определяет список возвращаемых столбцов (как существующих, так и вычисляемых), их имена, ограничения 
+на уникальность строк в возвращаемом наборе, ограничения на количество строк в возвращаемом наборе;
+-FROM задаёт табличное выражение, которое определяет базовый набор данных для применения операций, определяемых в 
+других предложениях оператора;
+-WHERE задает ограничение на строки табличного выражения из предложения FROM;
+-GROUP BY объединяет ряды, имеющие одинаковое свойство с применением агрегатных функций
+-HAVING выбирает среди групп, определённых параметром GROUP BY
+-ORDER BY задает критерии сортировки строк; отсортированные строки передаются в точку вызова.
+SELECT column1, column2, ...
+FROM table_name;
+
+
+    Оператор SELECT DISTINCT(SQL Select Distinct) используется для возврата только различных (разных) значений.
+Столбец внутри таблицы часто содержит много повторяющихся значений; а иногда вы хотите перечислить
+ только разные (отдельные) значения.
+SELECT DISTINCT column1, column2, ...
+FROM table_name;
+
+
+    SQL WHERE
+Предложение WHEREиспользуется для фильтрации записей.
+Он используется для извлечения только тех записей, которые соответствуют указанному условию.
+SELECT column1, column2, ...
+FROM table_name
+WHERE condition;
+
+
+   SQL AND, OR и NOT(SQL And, Or, Not)
+WHEREРаздел может быть объединен с AND, ORи NOTоператорами.
+В ANDи ORоператоры используются для записей фильтров , основанных на более чем одном условии:
+На ANDоператора отображается запись , если все условия , разделенные AND истинны.
+На ORоператоре отображается записью , если какая - либо из условий , разделенная ORИСТИНА.
+В NOTоператоре отображает запись , если условие (s) не соответствует действительности.
+ AND Syntax
+SELECT column1, column2, ...
+FROM table_name
+WHERE condition1 AND condition2 AND condition3 ...;
+ OR Syntax
+SELECT column1, column2, ...
+FROM table_name
+WHERE condition1 OR condition2 OR condition3 ...;
+ NOT Syntax
+SELECT column1, column2, ...
+FROM table_name
+WHERE NOT condition;
+
+         ORDER BY в SQL(SQL Order By)
+ORDER BYКлючевое слово используется для сортировки множества результатов в порядке возрастания или убывания.
+ORDER BYКлючевых слов сортирует записи в возрастающем порядке по умолчанию. Чтобы отсортировать записи
+ в порядке убывания, используйте DESCключевое слово.
+  ORDER BY синтаксис:
+  SELECT column1, column2, ...
+  FROM table_name
+  ORDER BY column1, column2, ... ASC|DESC;
+
+    SQL INSERT INTO
+Оператор INSERT INTOиспользуется для вставки новых записей в таблицу.
+
+   INSERT INTO синтаксис:
+Выписку можно написать INSERT INTO двумя способами:
+1. Укажите имена столбцов и значения для вставки:
+INSERT INTO table_name (column1, column2, column3, ...)
+VALUES (value1, value2, value3, ...);
+2. Если вы добавляете значения для всех столбцов таблицы, вам не нужно указывать имена столбцов
+ в запросе SQL. Однако убедитесь, что порядок значений соответствует порядку столбцов в таблице. 
+Здесь INSERT INTOсинтаксис будет следующим :
+INSERT INTO table_name
+VALUES (value1, value2, value3, ...);
+
+   Что такое значение NULL?(SQL Null Values)
+Поле со значением NULL - это поле без значения.
+Если поле в таблице является необязательным, можно вставить новую запись или обновить запись без 
+добавления значения в это поле. Затем поле будет сохранено со значением NULL.
+Примечание. Значение NULL отличается от нулевого значения или поля, содержащего пробелы. Поле со 
+значением NULL - это поле, которое было оставлено пустым во время создания записи!
+Как проверить значения NULL?
+Невозможно проверить значения NULL с помощью операторов сравнения, таких как =, <или <>.
+Вместо этого нам придется использовать операторы IS NULLи IS NOT NULL.
+ IS NULL Синтаксис:
+SELECT column_names
+FROM   table_name
+WHERE  column_name IS NULL;
+ IS NOT NULL Синтаксис:
+SELECT column_names
+FROM   table_name
+WHERE  column_name IS NOT NULL;
+
+      SQL UPDATE
+Оператор UPDATEиспользуется для изменения существующих записей в таблице.
+
+ОБНОВЛЕНИЕ синтаксиса:
+UPDATE table_name
+SET    column1 = value1, column2 = value2, ...
+WHERE  condition;
+
+     SQL DELETE
+Оператор DELETEиспользуется для удаления существующих записей в таблице.
+УДАЛИТЬ синтаксис:
+DELETE FROM table_name WHERE condition;
+    
+     SQL TOP, ПРЕДЕЛ, FETCH FIRST или ROWNUM Пунктом(SQL Select Top)
+Предложение SQL SELECT TOP
+Предложение SELECT TOPиспользуется для указания количества возвращаемых записей.
+Предложение SELECT TOPполезно для больших таблиц с тысячами записей. Возврат большого количества 
+записей может повлиять на производительность.
+Примечание. Не все системы баз данных поддерживают это SELECT TOPпредложение. MySQL поддерживает
+ LIMITпредложение для выбора ограниченного числа записей, в то время как Oracle использует и . 
+FETCH FIRST n ROWS ONLYROWNUM
+
+Синтаксис SQL Server / MS Access:
+
+SELECT TOP number|percent column_name(s)
+FROM table_name
+WHERE condition;
+Синтаксис MySQL:
+
+SELECT column_name(s)
+FROM table_name
+WHERE condition
+LIMIT number;
+Синтаксис Oracle 12:
+
+SELECT column_name(s)
+FROM table_name
+ORDER BY column_name(s)
+FETCH FIRST number ROWS ONLY;
+Старый синтаксис Oracle:
+
+SELECT column_name(s)
+FROM table_name
+WHERE ROWNUM <= number;
+Старый синтаксис Oracle (с ORDER BY):
+SELECT *
+FROM (SELECT column_name(s) FROM table_name ORDER BY column_name(s))
+WHERE ROWNUM <= number;
+
+     Функции SQL MIN () и MAX ()   (SQL Min and Max)
+MIN()Функция возвращает наименьшее значение выбранного столбца.
+MAX()Функция возвращает наибольшее значение выбранного столбца.
+  MIN () Синтаксис:
+SELECT MIN(column_name)
+FROM table_name
+WHERE condition;
+MAX () Синтаксис:
+SELECT MAX(column_name)
+FROM table_name
+WHERE condition;
+
+    SQL COUNT (), AVG () и SUM ()     (SQL Count, Avg, Sum)
+COUNT()Функция возвращает количество строк , которое соответствует заданному критерию.
+
+COUNT () Синтаксис:
+SELECT COUNT(column_name)
+FROM table_name
+WHERE condition;
+AVG()Функция возвращает среднее значение числового столбца. 
+
+AVG () Синтаксис:
+SELECT AVG(column_name)
+FROM table_name
+WHERE condition;
+SUM()Функция возвращает общую сумму числового столбца. 
+
+SUM () Синтаксис:
+SELECT SUM(column_name)
+FROM table_name
+WHERE condition;
+
+      SQL LIKE
+LIKEОператор используется в WHEREпредложении для поиска указанного шаблона в колонке.
+В сочетании с LIKEоператором часто используются два подстановочных знака :
+ Знак процента (%) представляет ноль, один или несколько символов.
+ Знак подчеркивания (_) представляет собой один одиночный символ.
+Примечание. MS Access использует звездочку (*) вместо знака процента (%) и вопросительный знак (?) Вместо
+ подчеркивания (_).
+Знак процента и подчеркивание также можно использовать в комбинациях!
+
+LIKE синтаксис:
+SELECT column1, column2, ...
+FROM table_name
+WHERE columnN LIKE pattern;
+
+     Подстановочные знаки SQL(SQL Wildcards)
+Подстановочный знак используется для замены одного или нескольких символов в строке.
+С оператором используются подстановочные знаки . Оператор используется в предложении для поиска указанного
+ шаблона в колонке. LIKELIKE WHERE
+
+Подстановочные знаки в MS Access
+Symbol	Description	Example
+*	Represents zero or more characters	             bl* finds bl, black, blue, and blob
+?	Represents a single character	                     h?t finds hot, hat, and hit
+[]	Represents any single character within the brackets	h[oa]t finds hot and hat, but not hit
+!	Represents any character not in the brackets	     h[!oa]t finds hit, but not hot and hat
+-	Represents a range of characters	             c[a-b]t finds cat and cbt
+#	Represents any single numeric character	           2#5 finds 205, 215, 225, 235, 245, 255, 265, 275, 285, and 295
+Подстановочные знаки в SQL Server
+Symbol	Description	Example
+%	Represents zero or more characters	             bl% finds bl, black, blue, and blob
+_	Represents a single character	                     h_t finds hot, hat, and hit
+[]	Represents any single character within the brackets	h[oa]t finds hot and hat, but not hit
+^	Represents any character not in the brackets	     h[^oa]t finds hit, but not hot and hat
+-	Represents a range of characters	             c[a-b]t finds cat and cbt
+Все подстановочные знаки также можно использовать в комбинациях!
+Вот несколько примеров, показывающих разные LIKEоператоры с подстановочными знаками "%" и "_":
+
+LIKE Operator	Description
+WHERE CustomerName LIKE 'a%'	Finds any values that starts with "a"
+WHERE CustomerName LIKE '%a'	Finds any values that ends with "a"
+WHERE CustomerName LIKE '%or%'	Finds any values that have "or" in any position
+WHERE CustomerName LIKE '_r%'	Finds any values that have "r" in the second position
+WHERE CustomerName LIKE 'a__%'	Finds any values that starts with "a" and are at least 3 characters in length
+WHERE ContactName LIKE 'a%o'	Finds any values that starts with "a" and ends with "o"
+
+
+    SQL IN
+INОператор позволяет указать несколько значений в WHEREпредложении.
+INОператор является обобщающим для нескольких ORусловий.
+IN синтаксис:
+SELECT column_name(s)
+FROM table_name
+WHERE column_name IN (value1, value2, ...);
+или же:
+
+SELECT column_name(s)
+FROM table_name
+WHERE column_name IN (SELECT STATEMENT);
+
+    SQL BETWEEN
+В BETWEENоператор выбирает значения в пределах заданного диапазона. Значения могут быть числами, 
+текстом или датами.
+BETWEENОператор включено: начальные и конечные значения включаются. 
+
+BETWEEN синтаксис:
+SELECT column_name(s)
+FROM   table_name
+WHERE  column_name BETWEEN value1 AND value2;
+
+       Псевдонимы SQL(SQL Aliases)
+Псевдонимы SQL используются для присвоения таблице или столбцу в таблице временного имени.
+Псевдонимы часто используются для облегчения чтения имен столбцов.
+Псевдоним существует только на время этого запроса.
+Псевдоним создается с ASключевым словом.
+
+Синтаксис столбца псевдонима:
+SELECT column_name AS alias_name
+FROM table_name;
+Синтаксис таблицы псевдонимов:
+SELECT column_name(s)
+FROM table_name AS alias_name;
+
+          SQL ПРИСОЕДИНЯТЬСЯ(SQL Joins)
+Предложение JOINиспользуется для объединения строк из двух или более таблиц на основе связанного столбца между ними.
+Давайте посмотрим на выбор из таблицы «Заказы»:
+OrderID	CustomerID	OrderDate
+10308	2	1996-09-18
+10309	37	1996-09-19
+10310	77	1996-09-20
+Затем посмотрите на выбор из таблицы «Клиенты»:
+
+CustomerID	CustomerName	ContactName	Country
+1	Alfreds Futterkiste	Maria Anders	Germany
+2	Ana Trujillo Emparedados y helados	Ana Trujillo	Mexico
+3	Antonio Moreno Taquería	Antonio Moreno	Mexico
+Обратите внимание, что столбец «Идентификатор клиента» в таблице «Заказы» ссылается на «Идентификатор клиента» 
+в таблице «Клиенты». Связь между двумя приведенными выше таблицами - это столбец «CustomerID».
+Затем мы можем создать следующий оператор SQL (который содержит INNER JOIN), который выбирает записи,
+ которые имеют совпадающие значения в обеих таблицах:
+Пример
+SELECT Orders.OrderID, Customers.CustomerName, Orders.OrderDate
+FROM Orders
+INNER JOIN Customers ON Orders.CustomerID=Customers.CustomerID;
+
+    Ключевое слово SQL INNER JOIN(SQL Left Join)
+В INNER JOINключевой фразе выбирает записи , которые имеют соответствующие значения в обеих таблицах.
+
+INNER JOIN Синтаксис
+SELECT column_name(s)
+FROM table1
+INNER JOIN table2
+ON table1.column_name = table2.column_name;
+
+
+   Ключевое слово SQL RIGHT JOIN(SQL Right Join)
+В RIGHT JOINключевых словах возвращает все записи из таблицы справа (table2) и совпадающие записи из
+ левой таблицы (table1). Результатом будет 0 записей с левой стороны, если совпадений нет.
+RIGHT JOIN Синтаксис:
+SELECT column_name(s)
+FROM table1
+RIGHT JOIN table2
+ON table1.column_name = table2.column_name;
+
+      Ключевое слово SQL FULL OUTER JOIN(SQL Full Join)
+В FULL OUTER JOINключевых словах возвращают все записи , когда Eсть матч в левом (table1) или право
+ таблице (table2) записях.
+Совет: FULL OUTER JOIN и FULL JOINтакие же.
+
+Синтаксис FULL OUTER JOIN:
+SELECT column_name(s)
+FROM table1
+FULL OUTER JOIN table2
+ON table1.column_name = table2.column_name
+WHERE condition;
+   
+      Самостоятельное присоединение к SQL(SQL Self Join)
+Самосоединение - это обычное соединение, но таблица соединяется сама с собой.
+Синтаксис самостоятельного присоединения:
+SELECT column_name(s)
+FROM table1 T1, table1 T2
+WHERE condition;
+
+      Оператор SQL UNION (SQL Union)
+UNIONОператор используется для объединения множества результатов двух или более SELECT заявлений.
+Каждый SELECTоператор внутри UNIONдолжен иметь одинаковое количество столбцов.
+Столбцы также должны иметь похожие типы данных.
+Столбцы в каждом SELECTутверждении также должны быть в одном порядке.
+UNION Синтаксис:
+SELECT column_name(s) FROM table1
+UNION
+SELECT column_name(s) FROM table2;
+UNION ALL Синтаксис:
+По UNIONумолчанию оператор выбирает только отдельные значения. Чтобы разрешить повторяющиеся значения, 
+используйте UNION ALL:
+
+SELECT column_name(s) FROM table1
+UNION ALL
+SELECT column_name(s) FROM table2;
+
+    Оператор SQL GROUP BY (SQL Group By)
+В GROUP BYзаявлении группа строки , которые имеют одинаковые значения в краткие строки, 
+как «найти количество клиентов в каждой стране».
+GROUP BYУтверждение часто используется с агрегатными функциями ( COUNT(), MAX(), MIN(), SUM(),
+ AVG()) для группировки множества результатов с помощью одного или более столбцов.
+
+GROUP BY Синтаксис:
+SELECT column_name(s)
+FROM table_name
+WHERE condition
+GROUP BY column_name(s)
+ORDER BY column_name(s);
+
+     Предложение SQL HAVING (SQL Having)
+Предложение HAVINGбыло добавлено в SQL, поскольку WHEREключевое слово нельзя использовать с 
+агрегатными функциями.
+
+ИМЕЮЩИЙ синтаксис:
+SELECT column_name(s)
+FROM table_name
+WHERE condition
+GROUP BY column_name(s)
+HAVING condition
+ORDER BY column_name(s);
